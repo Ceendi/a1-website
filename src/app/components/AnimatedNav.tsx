@@ -1,16 +1,22 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter, usePathname } from "next/navigation";
 import HomeContent from "./tabs/HomeContent";
 import ProjectsContent from "./tabs/ProjectsContent";
 import BlogContent from "./tabs/BlogContent";
 import AboutContent from "./tabs/AboutContent";
 
 const PAGES = [
-  { id: "home", label: "HOME", content: <HomeContent /> },
-  { id: "projects", label: "PROJECTS", content: <ProjectsContent /> },
-  { id: "blog", label: "BLOG", content: <BlogContent /> },
-  { id: "about", label: "ABOUT", content: <AboutContent /> },
+  { id: "home", label: "HOME", path: "/", content: <HomeContent /> },
+  {
+    id: "projects",
+    label: "PROJECTS",
+    path: "/projects",
+    content: <ProjectsContent />,
+  },
+  { id: "blog", label: "BLOG", path: "/blog", content: <BlogContent /> },
+  { id: "about", label: "ABOUT", path: "/about", content: <AboutContent /> },
 ];
 
 interface AnimationBatch {
@@ -25,14 +31,29 @@ interface AnimationProps {
 }
 
 export default function AnimatedNav() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [leftTabs, setLeftTabs] = useState<number[]>([0]);
-  const [rightTabs, setRightTabs] = useState<number[]>([1, 2, 3]);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Znajdź początkowy indeks na podstawie ścieżki
+  const initialActiveIndex = PAGES.findIndex((page) => page.path === pathname);
+  const initialLeftTabs = PAGES.slice(0, initialActiveIndex + 1).map(
+    (_, i) => i
+  );
+  const initialRightTabs = PAGES.slice(initialActiveIndex + 1).map(
+    (_, i) => initialActiveIndex + 1 + i
+  );
+
+  const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
+  const [leftTabs, setLeftTabs] = useState<number[]>(initialLeftTabs);
+  const [rightTabs, setRightTabs] = useState<number[]>(initialRightTabs);
   const [animationBatch, setAnimationBatch] = useState<AnimationBatch | null>(
     null
   );
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<"left" | "right">("left");
+  const [pendingNavigation, setPendingNavigation] = useState<string | null>(
+    null
+  );
 
   // Handle tab click with proper animation direction
   const handleTabClick = (index: number) => {
@@ -77,6 +98,7 @@ export default function AnimatedNav() {
       // Right tabs will be updated after animation completes
     }
     setActiveIndex(index);
+    setPendingNavigation(PAGES[index].path);
   };
 
   // Handle animation completion
@@ -94,15 +116,17 @@ export default function AnimatedNav() {
       setRightTabs(newRightTabs);
     }
     setAnimationBatch(null);
-    setIsAnimating(false);
+
+    // Wykonaj przekierowanie po zakończeniu animacji
+    if (pendingNavigation) {
+      router.push(pendingNavigation, { scroll: false });
+      setPendingNavigation(null);
+    }
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 400);
   };
 
-  console.log(
-    leftTabs.length,
-    rightTabs.length,
-    animationBatch?.tabIndices.length
-  );
-  console.log(direction);
   const contentVariants = {
     enter: ({
       leftTabsLength,
@@ -139,9 +163,7 @@ export default function AnimatedNav() {
             disabled={isAnimating}
             className={`w-24 h-full flex items-center justify-center cursor-pointer select-none
               ${
-                index === activeIndex
-                  ? "bg-gray-500 text-white"
-                  : "bg-gray-200 "
+                index === activeIndex ? "bg-gray-500 text-white" : "bg-gray-200"
               }
             `}
             style={{
@@ -166,7 +188,7 @@ export default function AnimatedNav() {
             key={PAGES[index].id}
             onClick={() => handleTabClick(index)}
             disabled={isAnimating}
-            className="w-24 h-full flex items-center justify-center border-b border-gray-200 cursor-pointer select-none bg-gray-200 text-gray-700"
+            className="w-24 h-full flex items-center justify-center cursor-pointer select-none bg-gray-200"
             style={{
               writingMode: "vertical-rl",
               textOrientation: "mixed",
@@ -186,11 +208,10 @@ export default function AnimatedNav() {
       <div className="w-full h-full flex items-center justify-center">
         {/* Animated tabs */}
         <AnimatePresence
+          mode="popLayout"
           custom={direction}
           initial={false}
-          onExitComplete={() => {
-            handleAnimationComplete();
-          }}
+          onExitComplete={handleAnimationComplete}
         >
           <motion.div
             key={activeIndex}
@@ -203,26 +224,7 @@ export default function AnimatedNav() {
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 5, ease: "easeInOut" }}
-            onAnimationComplete={(definition) => {
-              if (definition === "center") {
-                if (animationBatch?.direction === "left") {
-                  setLeftTabs((prev) =>
-                    [...prev, ...animationBatch?.tabIndices].sort(
-                      (a, b) => a - b
-                    )
-                  );
-                } else {
-                  setRightTabs((prev) =>
-                    [...prev, ...(animationBatch?.tabIndices || [])].sort(
-                      (a, b) => a - b
-                    )
-                  );
-                }
-                setAnimationBatch(null);
-                setIsAnimating(false);
-              }
-            }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             className="absolute top-0 w-full h-full flex items-center justify-center bg-white"
           >
             {/* Content */}

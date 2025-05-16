@@ -3,7 +3,7 @@ import AnimatedNav from "./components/AnimatedNav";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-white">
       <AnimatedNav />
       <p>lol</p>
     </main>
