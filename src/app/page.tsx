@@ -1,9 +1,11 @@
-import Image from "next/image";
+// app/page.tsx  (Home)
+import AnimatedNav from "./components/AnimatedNav";
 
 export default function Home() {
   return (
-    <section className="p-8">
-      <h1 className="text-3xl mb-4">Witaj na stronie!</h1>
-    </section>
+    <main className="min-h-screen">
+      <AnimatedNav />
+      <p>lol</p>
+    </main>
   );
 }
