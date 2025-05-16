@@ -44,7 +44,7 @@ export default function AnimatedNav() {
         PAGES.slice(newActiveIndex + 1).map((_, i) => newActiveIndex + 1 + i)
       );
     }
-  }, [pathname]);
+  }, [pathname, activeIndex]);
 
   const handleTabClick = (index: number) => {
     if (isAnimating || index === activeIndex) return;

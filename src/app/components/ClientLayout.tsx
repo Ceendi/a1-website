@@ -4,11 +4,7 @@ import MobileMenu from "./MobileMenu";
 import AnimatedNav from "./AnimatedNav";
 import { PAGES } from "../config/pages";
 
-export default function ClientLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ClientLayout() {
   const path = usePathname();
   const currentPage = PAGES.find((page) => page.path === path) || PAGES[0];
 
