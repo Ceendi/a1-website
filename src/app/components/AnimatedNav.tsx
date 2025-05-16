@@ -2,22 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
-import HomeContent from "./tabs/HomeContent";
-import ProjectsContent from "./tabs/ProjectsContent";
-import BlogContent from "./tabs/BlogContent";
-import AboutContent from "./tabs/AboutContent";
-
-const PAGES = [
-  { id: "home", label: "HOME", path: "/", content: <HomeContent /> },
-  {
-    id: "projects",
-    label: "PROJECTS",
-    path: "/projects",
-    content: <ProjectsContent />,
-  },
-  { id: "blog", label: "BLOG", path: "/blog", content: <BlogContent /> },
-  { id: "about", label: "ABOUT", path: "/about", content: <AboutContent /> },
-];
+import { PAGES } from "../config/pages";
 
 interface AnimationBatch {
   direction: "left" | "right";
@@ -49,74 +34,79 @@ export default function AnimatedNav() {
     null
   );
 
-  // Handle tab click with proper animation direction
+  // refreshing tabs and index when pathname changes
+  useEffect(() => {
+    const newActiveIndex = PAGES.findIndex((page) => page.path === pathname);
+    if (newActiveIndex !== -1 && newActiveIndex !== activeIndex) {
+      setActiveIndex(newActiveIndex);
+      setLeftTabs(PAGES.slice(0, newActiveIndex + 1).map((_, i) => i));
+      setRightTabs(
+        PAGES.slice(newActiveIndex + 1).map((_, i) => newActiveIndex + 1 + i)
+      );
+    }
+  }, [pathname]);
+
   const handleTabClick = (index: number) => {
     if (isAnimating || index === activeIndex) return;
     setIsAnimating(true);
 
-    // Set direction based on which side the tab is clicked from
-    setDirection(rightTabs.includes(index) ? "left" : "right");
+    // direction of the animation
+    const newDirection = rightTabs.includes(index) ? "left" : "right";
+    setDirection(newDirection);
 
-    // Determine which tabs should be animated
+    // determine which tabs should be animated
     let tabsToAnimate: number[] = [];
     if (rightTabs.includes(index)) {
-      // When moving from right to left, animate all tabs between the clicked tab and the leftmost tab
       const clickedIndex = rightTabs.indexOf(index);
       tabsToAnimate = rightTabs.slice(0, clickedIndex + 1);
     } else {
-      // When moving from left to right, animate all tabs between the clicked tab and the rightmost tab
       const clickedIndex = leftTabs.indexOf(index);
       tabsToAnimate = leftTabs.slice(clickedIndex + 1);
     }
-
-    const newDirection = rightTabs.includes(index) ? "left" : "right";
 
     setAnimationBatch({
       direction: newDirection,
       tabIndices: [...tabsToAnimate],
     });
 
+    // update tabs after click
     if (rightTabs.includes(index)) {
-      // Moving from right to left
       const newRightTabs = rightTabs.filter(
         (tab) => !tabsToAnimate.includes(tab)
       );
       setRightTabs(newRightTabs);
-      // Left tabs will be updated after animation completes
     } else {
-      // Moving from left to right
       const newLeftTabs = leftTabs.filter(
         (tab) => !tabsToAnimate.includes(tab)
       );
       setLeftTabs(newLeftTabs);
-      // Right tabs will be updated after animation completes
     }
     setActiveIndex(index);
     setPendingNavigation(PAGES[index].path);
   };
 
-  // Handle animation completion
+  // after animation
   const handleAnimationComplete = () => {
     if (!animationBatch) return;
 
     const { direction, tabIndices } = animationBatch;
+    // update tabs after animation
     if (direction === "left") {
-      // After moving from right to left, add animated tabs to leftTabs
       const newLeftTabs = [...leftTabs, ...tabIndices].sort((a, b) => a - b);
       setLeftTabs(newLeftTabs);
     } else {
-      // After moving from left to right, add animated tabs to rightTabs
       const newRightTabs = [...rightTabs, ...tabIndices].sort((a, b) => a - b);
       setRightTabs(newRightTabs);
     }
     setAnimationBatch(null);
 
-    // Wykonaj przekierowanie po zakończeniu animacji
+    // redirect after animation
     if (pendingNavigation) {
       router.push(pendingNavigation, { scroll: false });
     }
   };
 
+  // reset pending navigation and isAnimating after redirect
   useEffect(() => {
     if (pendingNavigation && pathname === pendingNavigation) {
       setPendingNavigation(null);
@@ -124,9 +114,13 @@ export default function AnimatedNav() {
     }
   }, [pathname, pendingNavigation]);
 
+  // animation variants
   const contentVariants = {
     enter: () => ({
-      x: direction === "left" ? `calc(100vw - 24rem)` : `calc(-100vw + 24rem)`,
+      x:
+        direction === "left"
+          ? `calc(100vw - ${PAGES.length * 6}rem)`
+          : `calc(-100vw + ${PAGES.length * 6}rem)`,
       opacity: 1,
     }),
     center: {
@@ -134,13 +128,16 @@ export default function AnimatedNav() {
       opacity: 1,
     },
     exit: (direction: "left" | "right") => ({
-      x: direction === "left" ? `calc(-100vw + 24rem)` : `calc(100vw - 24rem)`,
+      x:
+        direction === "left"
+          ? `calc(-100vw + ${PAGES.length * 6}rem)`
+          : `calc(100vw - ${PAGES.length * 6}rem)`,
       opacity: 1,
     }),
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden">
+    <div className="hidden lg:block relative w-screen h-screen overflow-hidden">
       {/* Left side tabs */}
       <div className="absolute left-0 top-0 h-full flex flex-row z-30">
         {leftTabs.map((index) => (
@@ -155,8 +152,7 @@ export default function AnimatedNav() {
             `}
             style={{
               writingMode: "vertical-rl",
-              textOrientation: "mixed",
-              rotate: "180deg",
+              textOrientation: "upright",
               fontSize: "1.2rem",
               letterSpacing: "2px",
             }}
@@ -178,8 +174,7 @@ export default function AnimatedNav() {
             className="w-24 h-full flex items-center justify-center cursor-pointer select-none bg-gray-200"
             style={{
               writingMode: "vertical-rl",
-              textOrientation: "mixed",
-              rotate: "180deg",
+              textOrientation: "upright",
               fontSize: "1.2rem",
               letterSpacing: "2px",
             }}
@@ -202,11 +197,6 @@ export default function AnimatedNav() {
         >
           <motion.div
             key={activeIndex}
-            custom={{
-              leftTabsLength: leftTabs.length,
-              rightTabsLength: rightTabs.length,
-              animatedTabsLength: animationBatch?.tabIndices.length,
-            }}
             variants={contentVariants}
             initial="enter"
             animate="center"
@@ -216,7 +206,7 @@ export default function AnimatedNav() {
           >
             {/* Content */}
             <div className="absolute flex-1 flex items-center justify-center w-full">
-              {PAGES[activeIndex].content}
+              {PAGES[activeIndex]?.content}
             </div>
 
             {/* Tab indicators */}
@@ -235,8 +225,7 @@ export default function AnimatedNav() {
                   }`}
                 style={{
                   writingMode: "vertical-rl",
-                  textOrientation: "mixed",
-                  rotate: "180deg",
+                  textOrientation: "upright",
                   fontSize: "1.2rem",
                   letterSpacing: "2px",
                   left:

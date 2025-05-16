@@ -1,8 +1,9 @@
 import "./globals.css";
+import ClientLayout from "./components/ClientLayout";
 
 export const metadata = {
-  title: "Animated Vertical Tabs Navigation",
-  description: "Framer Motion + Tailwind CSS + Next.js",
+  title: "A1 Studio",
+  description: "A1 Studio - Your Partner in Architecture",
 };
 
 export default function RootLayout({
@@ -11,8 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="pl">
+      <body>
+        <ClientLayout>{children}</ClientLayout>
+      </body>
     </html>
   );
 }
