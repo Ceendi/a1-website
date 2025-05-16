@@ -35,6 +35,7 @@ export default function AnimatedNav() {
   );
 
   // refreshing tabs and index when pathname changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const newActiveIndex = PAGES.findIndex((page) => page.path === pathname);
     if (newActiveIndex !== -1 && newActiveIndex !== activeIndex) {
@@ -44,7 +45,7 @@ export default function AnimatedNav() {
         PAGES.slice(newActiveIndex + 1).map((_, i) => newActiveIndex + 1 + i)
       );
     }
-  }, [pathname, activeIndex]);
+  }, [pathname]);
 
   const handleTabClick = (index: number) => {
     if (isAnimating || index === activeIndex) return;
