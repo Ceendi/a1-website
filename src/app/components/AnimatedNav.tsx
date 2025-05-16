@@ -24,12 +24,6 @@ interface AnimationBatch {
   tabIndices: number[];
 }
 
-interface AnimationProps {
-  leftTabsLength: number;
-  rightTabsLength: number;
-  animatedTabsLength: number;
-}
-
 export default function AnimatedNav() {
   const router = useRouter();
   const pathname = usePathname();
@@ -120,23 +114,19 @@ export default function AnimatedNav() {
     // Wykonaj przekierowanie po zakończeniu animacji
     if (pendingNavigation) {
       router.push(pendingNavigation, { scroll: false });
-      setPendingNavigation(null);
     }
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 400);
   };
 
+  useEffect(() => {
+    if (pendingNavigation && pathname === pendingNavigation) {
+      setPendingNavigation(null);
+      setIsAnimating(false);
+    }
+  }, [pathname, pendingNavigation]);
+
   const contentVariants = {
-    enter: ({
-      leftTabsLength,
-      rightTabsLength,
-      animatedTabsLength,
-    }: AnimationProps) => ({
-      x:
-        direction === "left"
-          ? `calc(100vw - ${4 * 6}rem)`
-          : `calc(-100vw + ${4 * 6}rem)`,
+    enter: () => ({
+      x: direction === "left" ? `calc(100vw - 24rem)` : `calc(-100vw + 24rem)`,
       opacity: 1,
     }),
     center: {
@@ -144,10 +134,7 @@ export default function AnimatedNav() {
       opacity: 1,
     },
     exit: (direction: "left" | "right") => ({
-      x:
-        direction === "left"
-          ? `calc(-100vw + ${4 * 6}rem)`
-          : `calc(100vw - ${4 * 6}rem)`,
+      x: direction === "left" ? `calc(-100vw + 24rem)` : `calc(100vw - 24rem)`,
       opacity: 1,
     }),
   };
