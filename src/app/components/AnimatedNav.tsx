@@ -122,8 +122,8 @@ export default function AnimatedNav() {
     exit: (direction: "left" | "right") => ({
       x:
         direction === "left"
-          ? `calc(-100vw - ${4 * 6}rem)`
-          : `calc(100vw + ${4 * 6}rem)`,
+          ? `calc(-100vw + ${4 * 6}rem)`
+          : `calc(100vw - ${4 * 6}rem)`,
       opacity: 1,
     }),
   };
@@ -137,11 +137,11 @@ export default function AnimatedNav() {
             key={PAGES[index].id}
             onClick={() => handleTabClick(index)}
             disabled={isAnimating}
-            className={`w-24 h-full flex items-center justify-center border-b border-gray-200 cursor-pointer select-none
+            className={`w-24 h-full flex items-center justify-center cursor-pointer select-none
               ${
                 index === activeIndex
-                  ? "bg-blue-500 text-white font-bold"
-                  : "bg-gray-200 text-gray-700"
+                  ? "bg-gray-500 text-white"
+                  : "bg-gray-200 "
               }
             `}
             style={{
@@ -226,7 +226,7 @@ export default function AnimatedNav() {
             className="absolute top-0 w-full h-full flex items-center justify-center bg-white"
           >
             {/* Content */}
-            <div className="absolute flex-1 flex items-center justify-center w-full pl-28 pr-8 py-8">
+            <div className="absolute flex-1 flex items-center justify-center w-full">
               {PAGES[activeIndex].content}
             </div>
 
@@ -241,7 +241,7 @@ export default function AnimatedNav() {
                   ${
                     animationBatch?.direction === "left" &&
                     index === animationBatch.tabIndices.length - 1
-                      ? "bg-blue-500 text-white"
+                      ? "bg-gray-500 text-white"
                       : "bg-gray-200"
                   }`}
                 style={{
