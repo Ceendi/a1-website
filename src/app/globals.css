@@ -3,27 +3,27 @@
 @tailwind utilities;
 
 ::view-transition-old(root) {
-  animation: slide-out-left 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slide-out-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 ::view-transition-new(root) {
-  animation: slide-in-right 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slide-in-right 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .nav-direction-next::view-transition-old(root) {
-  animation: slide-out-left 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slide-out-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .nav-direction-next::view-transition-new(root) {
-  animation: slide-in-right 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slide-in-right 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .nav-direction-prev::view-transition-old(root) {
-  animation: slide-out-right 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slide-out-right 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .nav-direction-prev::view-transition-new(root) {
-  animation: slide-in-left 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slide-in-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes slide-out-left {
@@ -74,22 +74,22 @@
 ::view-transition-old(tab-projects),
 ::view-transition-old(tab-blog),
 ::view-transition-old(tab-about) {
-  animation: tab-slide-out 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: tab-slide-out 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 ::view-transition-new(tab-home),
 ::view-transition-new(tab-projects),
 ::view-transition-new(tab-blog),
 ::view-transition-new(tab-about) {
-  animation: tab-slide-in 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: tab-slide-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 ::view-transition-old(active-indicator) {
-  animation: indicator-fade-out 3s ease-out forwards;
+  animation: indicator-fade-out 0.3s ease-out forwards;
 }
 
 ::view-transition-new(active-indicator) {
-  animation: indicator-slide-in 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: indicator-slide-in 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes tab-slide-out {
@@ -137,7 +137,7 @@ html {
 }
 
 ::view-transition-group(*) {
-  animation-duration: 5s;
+  animation-duration: 0.5s;
 }
 
 ::view-transition-group(*),
