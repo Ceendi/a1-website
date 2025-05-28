@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navigation from "@/app/components/Navigation";
+import Navigation, { MobileNavigation } from "@/app/components/Navigation";
+import { unstable_ViewTransition as ViewTransition } from "react";
 
 export const metadata: Metadata = {
   title: "A1 website",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body className="bg-black text-white min-h-screen overflow-hidden">
         <div className="relative h-screen">
           <Navigation />
+          <MobileNavigation />
           <main className="h-full flex items-center justify-center">
             {children}
           </main>

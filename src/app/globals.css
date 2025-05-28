@@ -2,146 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-::view-transition-old(root) {
-  animation: slide-out-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+::view-transition-old(.slide-in-back) {
+  animation-name: slideOutRight;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
 }
 
-::view-transition-new(root) {
-  animation: slide-in-right 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+::view-transition-new(.slide-in-back) {
+  animation-name: slideInRight;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
 }
 
-.nav-direction-next::view-transition-old(root) {
-  animation: slide-out-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+::view-transition-old(.slide-in-forward) {
+  animation-name: slideOutLeft;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
 }
 
-.nav-direction-next::view-transition-new(root) {
-  animation: slide-in-right 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+::view-transition-new(.slide-in-forward) {
+  animation-name: slideInLeft;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
 }
 
-.nav-direction-prev::view-transition-old(root) {
-  animation: slide-out-right 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.nav-direction-prev::view-transition-new(root) {
-  animation: slide-in-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes slide-out-left {
+@keyframes slideOutLeft {
   from {
     transform: translateX(0);
-    opacity: 1;
   }
   to {
-    transform: translateX(-100%);
-    opacity: 0;
+    transform: translateX(-100vw);
   }
 }
 
-@keyframes slide-in-right {
+@keyframes slideInLeft {
   from {
-    transform: translateX(100%);
-    opacity: 0;
+    transform: translateX(-100vw);
   }
   to {
     transform: translateX(0);
-    opacity: 1;
   }
 }
 
-@keyframes slide-out-right {
+@keyframes slideOutRight {
   from {
     transform: translateX(0);
-    opacity: 1;
   }
   to {
-    transform: translateX(100%);
-    opacity: 0;
+    transform: translateX(100vw);
   }
 }
 
-@keyframes slide-in-left {
+@keyframes slideInRight {
   from {
-    transform: translateX(-100%);
-    opacity: 0;
+    transform: translateX(100vw);
   }
   to {
     transform: translateX(0);
-    opacity: 1;
   }
 }
 
-::view-transition-old(tab-home),
-::view-transition-old(tab-projects),
-::view-transition-old(tab-blog),
-::view-transition-old(tab-about) {
-  animation: tab-slide-out 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-::view-transition-new(tab-home),
-::view-transition-new(tab-projects),
-::view-transition-new(tab-blog),
-::view-transition-new(tab-about) {
-  animation: tab-slide-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-::view-transition-old(active-indicator) {
-  animation: indicator-fade-out 0.3s ease-out forwards;
-}
-
-::view-transition-new(active-indicator) {
-  animation: indicator-slide-in 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes tab-slide-out {
+@keyframes inPlace {
   from {
     transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(var(--slide-direction, -100%));
-    opacity: 0;
-  }
-}
-
-@keyframes tab-slide-in {
-  from {
-    transform: translateX(var(--slide-direction, 100%));
-    opacity: 0;
   }
   to {
     transform: translateX(0);
-    opacity: 1;
   }
-}
-
-@keyframes indicator-fade-out {
-  to {
-    opacity: 0;
-    transform: scaleY(0);
-  }
-}
-
-@keyframes indicator-slide-in {
-  from {
-    opacity: 0;
-    transform: scaleY(0);
-  }
-  to {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-::view-transition-group(*) {
-  animation-duration: 0.5s;
-}
-
-::view-transition-group(*),
-::view-transition-old(*),
-::view-transition-new(*) {
-  pointer-events: none;
 }
