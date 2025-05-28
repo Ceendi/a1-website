@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navigation, { MobileNavigation } from "@/app/components/Navigation";
-import { unstable_ViewTransition as ViewTransition } from "react";
 
 export const metadata: Metadata = {
   title: "A1 website",

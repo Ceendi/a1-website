@@ -1,4 +1,4 @@
-import { version, unstable_ViewTransition as ViewTransition } from "react";
+import { unstable_ViewTransition as ViewTransition } from "react";
 
 export default function Projects() {
   const projects = [
