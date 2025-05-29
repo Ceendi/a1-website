@@ -87,9 +87,9 @@ export async function generateStaticParams() {
 export default async function BlogPost({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params;
+  const { slug } = await params;
   const blog = await fetchBlogBySlug(slug);
   if (!blog) return notFound();
   const { Title, Content, Image: BlogImage } = blog;
