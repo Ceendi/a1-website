@@ -105,7 +105,7 @@ export default async function BlogPost({
 
   return (
     <div className="min-h-screen bg-gradient-to-br px-0 py-4 sm:px-2 sm:py-8 flex justify-center items-start">
-      <div className="w-full max-w-3xl bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-12 md:p-24 lg:p-24 xl:p-28 2xl:p-32 relative border border-slate-200 dark:border-neutral-800 mx-0">
+      <div className="w-full max-w-3xl bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-12 md:p-24 lg:p-24 xl:p-28 relative border border-slate-200 dark:border-neutral-800 mx-0">
         <div className="flex items-center gap-2 mb-6 sm:mb-8">
           <Link
             href="/blog"
