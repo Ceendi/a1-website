@@ -7,6 +7,7 @@ import {
   useState,
   unstable_ViewTransition as ViewTransition,
 } from "react";
+import { useTranslations } from "next-intl";
 
 const pages = [
   { path: "/", name: "home", index: 0 },
@@ -15,49 +16,71 @@ const pages = [
   { path: "/about", name: "about", index: 3 },
 ];
 
+function isTabActive(pathname: string, tabName: string) {
+  return (
+    pathname.includes(tabName) ||
+    (tabName === "home" && /^\/(en|pl)?$/.test(pathname))
+  );
+}
+
 export default function Navigation() {
+  const t = useTranslations();
+
   const router = useRouter();
   const pathname = usePathname();
 
-  const currentIndex = pages.findIndex((page) => page.path === pathname);
+  const currentIndex = pages.findIndex((p) => isTabActive(pathname, p.name));
 
   const leftTabs = pages.slice(0, currentIndex + 1);
   const rightTabs = pages.slice(currentIndex + 1);
 
-  const renderTab = (tab: (typeof pages)[number]) => (
-    <ViewTransition key={`${tab.path}`} name={`tab-${tab.name}`}>
-      <Link
-        href={tab.path}
-        onClick={(e) => {
-          e.preventDefault();
-          startTransition(() => {
-            if (tab.index > currentIndex) {
-              addTransitionType("right-tabs");
-            } else {
-              addTransitionType("left-tabs");
+  const renderTab = (tab: (typeof pages)[number]) => {
+    const isActive = isTabActive(pathname, tab.name);
+    return (
+      <ViewTransition key={`${tab.path}`} name={`tab-${tab.name}`}>
+        <Link
+          href={tab.path}
+          onClick={(e) => {
+            if (isActive) {
+              e.preventDefault();
+              return;
             }
-            router.push(tab.path);
-          });
-        }}
-        className={`h-screen flex items-center justify-center relative w-16
+            e.preventDefault();
+            startTransition(() => {
+              if (tab.index > currentIndex) {
+                addTransitionType("right-tabs");
+              } else {
+                addTransitionType("left-tabs");
+              }
+              router.push(tab.path);
+            });
+          }}
+          className={`h-screen flex items-center justify-center relative w-16
           ${
-            tab.path === pathname
-              ? "bg-white/80 text-black/70 disabled"
+            isActive
+              ? "bg-white/80 text-black/70 disabled cursor-default"
               : "bg-white/70 text-black/70 hover:text-white hover:bg-white/10"
           }`}
-        style={{
-          writingMode: "vertical-lr",
-          textOrientation: "mixed",
-          padding: 0,
-        }}
-        key={tab.path}
-      >
-        <span className="text-lg font-light tracking-widest transform rotate-180">
-          {tab.name.toUpperCase()}
-        </span>
-      </Link>
-    </ViewTransition>
-  );
+          key={tab.path}
+          aria-current={isActive ? "page" : undefined}
+          aria-disabled={isActive ? "true" : undefined}
+          tabIndex={isActive ? -1 : 0}
+        >
+          <span className="text-lg font-light tracking-widest flex flex-col items-center select-none">
+            {[...t(tab.name.toUpperCase())].map((char, i) =>
+              char === " " ? (
+                <span key={`${tab.name}-${i}`} style={{ minHeight: "1em" }}>
+                  &nbsp;
+                </span>
+              ) : (
+                <span key={`${tab.name}-${i}`}>{char}</span>
+              )
+            )}
+          </span>
+        </Link>
+      </ViewTransition>
+    );
+  };
 
   return (
     <div className="hidden lg:block">
