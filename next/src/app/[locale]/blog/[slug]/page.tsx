@@ -89,7 +89,7 @@ export default async function BlogPost({
 }: {
   params: { slug: string };
 }) {
-  const { slug } = await params;
+  const { slug } = params;
   const blog = await fetchBlogBySlug(slug);
   if (!blog) return notFound();
   const { Title, Content, Image: BlogImage } = blog;
