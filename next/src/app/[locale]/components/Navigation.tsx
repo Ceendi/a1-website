@@ -58,8 +58,8 @@ export default function Navigation() {
           className={`h-screen flex items-center justify-center relative w-16
           ${
             isActive
-              ? "bg-white/80 text-black/70 disabled cursor-default"
-              : "bg-white/70 text-black/70 hover:text-white hover:bg-white/10"
+              ? "bg-white text-black disabled cursor-default"
+              : "bg-slate-300 text-black hover:text-white hover:bg-black"
           }`}
           key={tab.path}
           aria-current={isActive ? "page" : undefined}
@@ -83,12 +83,14 @@ export default function Navigation() {
   };
 
   return (
-    <div className="hidden lg:block">
-      <div className="fixed inset-0 z-99 flex justify-between">
-        <div className="flex">{leftTabs.map(renderTab)}</div>
-        <div className="flex">{rightTabs.map(renderTab)}</div>
+    <nav className="hidden lg:block nav">
+      <div className="fixed top-0 left-0 bottom-0 z-50 flex flex-row">
+        {leftTabs.map(renderTab)}
       </div>
-    </div>
+      <div className="fixed top-0 right-0 bottom-0 z-50 flex flex-row">
+        {rightTabs.map(renderTab)}
+      </div>
+    </nav>
   );
 }
 
@@ -120,7 +122,7 @@ export function MobileNavigation() {
         ></span>
       </button>
       {open && (
-        <div className="fixed inset-0 z-40 bg-black/80 flex flex-col items-center justify-center lg:hidden animate-fade-in">
+        <nav className="fixed inset-0 z-40 bg-black/50 flex flex-col items-center justify-center lg:hidden animate-fade-in">
           {pages.map((page) => (
             <Link
               key={page.path}
@@ -129,13 +131,13 @@ export function MobileNavigation() {
               className={`text-2xl font-semibold my-4 transition-colors duration-200 ${
                 pathname === page.path
                   ? "text-white"
-                  : "text-white/60 hover:text-white"
+                  : "text-white hover:text-white"
               }`}
             >
               {page.name.toUpperCase()}
             </Link>
           ))}
-        </div>
+        </nav>
       )}
     </>
   );

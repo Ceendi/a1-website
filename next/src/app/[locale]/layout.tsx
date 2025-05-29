@@ -27,9 +27,7 @@ export default async function RootLayout({
           <div className="relative h-screen">
             <Navigation />
             <MobileNavigation />
-            <main className="h-full flex items-center justify-center">
-              {children}
-            </main>
+            <main className="flex items-center justify-center">{children}</main>
           </div>
         </body>
       </NextIntlClientProvider>

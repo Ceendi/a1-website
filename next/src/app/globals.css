@@ -70,3 +70,48 @@
     transform: translateX(0);
   }
 }
+
+::view-transition-group(tab-blog) {
+  z-index: 100;
+}
+
+::view-transition-group(tab-projects) {
+  z-index: 100;
+}
+
+::view-transition-group(tab-about) {
+  z-index: 100;
+}
+
+::view-transition-group(tab-home) {
+  z-index: 100;
+}
+
+.prose h1 {
+  font-size: 2em !important;
+}
+
+.prose h2 {
+  font-size: 1.5em !important;
+}
+
+.prose h3 {
+  font-size: 1.25em !important;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  font-weight: 700 !important;
+}
+.prose ul {
+  list-style-type: disc !important;
+  padding-left: 1.5em !important;
+}
+.prose ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5em !important;
+}
+.prose li {
+  margin-bottom: 0.5em !important;
+}
