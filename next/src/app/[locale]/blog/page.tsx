@@ -16,12 +16,12 @@ export interface Blog {
 }
 
 const fetchBlogs = async (): Promise<Blog[]> => {
+  const reqOptions = {
+    headers: {
+      Authorization: `Bearer ${process.env.API_TOKEN}`,
+    },
+  };
   try {
-    const reqOptions = {
-      headers: {
-        Authorization: `Bearer ${process.env.API_TOKEN}`,
-      },
-    };
     const request = await fetch(
       `${config.api}/api/blogs?populate=*&sort=createdAt:asc`,
       reqOptions
@@ -99,5 +99,5 @@ export default async function Blog() {
   );
 }
 
-export const dynamic = "error";
+export const dynamic = "force-static";
 export const revalidate = 60;

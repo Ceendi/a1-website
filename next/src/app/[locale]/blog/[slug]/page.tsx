@@ -57,6 +57,7 @@ const fetchAllBlogSlugs = async () => {
       return [];
     }
     const response = await request.json();
+    if (!response.data || response.data.length === 0) return null;
     return response.data.map(
       (blog: { id: number; slug: string; Title: string }) => ({
         id: blog.id,
@@ -81,7 +82,7 @@ export async function generateStaticParams() {
     reqOptions
   );
   const data = await res.json();
-  return data.data.map((blog: { slug: string }) => ({ slug: blog.slug }));
+  return data.data?.map((blog: { slug: string }) => ({ slug: blog.slug }));
 }
 
 export default async function BlogPost({
@@ -176,5 +177,5 @@ export default async function BlogPost({
   );
 }
 
-export const dynamic = "error";
+export const dynamic = "force-static";
 export const revalidate = 60;
