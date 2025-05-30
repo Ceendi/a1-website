@@ -20,7 +20,11 @@ const BlogCard = ({ blog }: BlogCardProps) => {
           <ViewTransition name={`blog-image-${blog.slug}`}>
             {imageUrl && (
               <Image
-                src={`${config.api}${imageUrl}`}
+                src={
+                  imageUrl.startsWith("http")
+                    ? imageUrl
+                    : `${config.api}${imageUrl}`
+                }
                 alt={blog.Image?.alternativeText || blog.Title}
                 className="mb-4 rounded-lg w-full h-48 object-cover"
                 width={blog.Image?.formats?.large?.width || 234}

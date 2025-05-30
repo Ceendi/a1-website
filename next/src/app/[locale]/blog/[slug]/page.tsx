@@ -130,7 +130,11 @@ export default async function BlogPost({
           {imageUrl && (
             <div className="mb-6 sm:mb-10">
               <Image
-                src={`${config.api}${imageUrl}`}
+                src={
+                  imageUrl.startsWith("http")
+                    ? imageUrl
+                    : `${config.api}${imageUrl}`
+                }
                 alt={BlogImage?.alternativeText || Title}
                 className="rounded-xl sm:rounded-2xl shadow-lg w-full object-cover"
                 width={BlogImage?.formats?.large?.width || 900}
