@@ -1,3 +1,5 @@
+export const revalidate = 300;
+
 import React from "react";
 import config from "@/config";
 import { notFound } from "next/navigation";
@@ -12,6 +14,9 @@ const fetchBlogBySlug = async (slug: string): Promise<Blog | null> => {
     const reqOptions = {
       headers: {
         Authorization: `Bearer ${process.env.API_TOKEN}`,
+      },
+      next: {
+        revalidate: 300,
       },
     };
     const request = await fetch(
@@ -46,6 +51,9 @@ const fetchAllBlogSlugs = async () => {
     const reqOptions = {
       headers: {
         Authorization: `Bearer ${process.env.API_TOKEN}`,
+      },
+      next: {
+        revalidate: 300,
       },
     };
     const request = await fetch(
@@ -176,6 +184,3 @@ export default async function BlogPost({
     </div>
   );
 }
-
-export const dynamic = "force-static";
-export const revalidate = 60;

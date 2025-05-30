@@ -11,6 +11,8 @@ interface BlogCardProps {
 const BlogCard = ({ blog }: BlogCardProps) => {
   const imageUrl = blog.Image?.url;
 
+  console.log(`blog-image-${blog.slug}`);
+
   return (
     <ViewTransition key={blog.id} name={`blog-card-${blog.id}`}>
       <Link href={`/blog/${blog.slug}`}>
@@ -20,7 +22,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
               <Image
                 src={`${config.api}${imageUrl}`}
                 alt={blog.Image?.alternativeText || blog.Title}
-                className="mb-4 rounded-lg w-full h-48 object-cover z-10"
+                className="mb-4 rounded-lg w-full h-48 object-cover"
                 width={blog.Image?.formats?.large?.width || 234}
                 height={blog.Image?.formats?.large?.height || 156}
               />

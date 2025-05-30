@@ -55,7 +55,7 @@ export default function Navigation() {
               router.push(tab.path);
             });
           }}
-          className={`h-screen flex items-center justify-center relative w-16
+          className={`h-screen flex items-center justify-center relative w-16 z-50 animate-in-place
           ${
             isActive
               ? "bg-white text-black disabled cursor-default"
@@ -83,14 +83,16 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="hidden lg:block nav">
-      <div className="fixed top-0 left-0 bottom-0 z-50 flex flex-row">
-        {leftTabs.map(renderTab)}
-      </div>
-      <div className="fixed top-0 right-0 bottom-0 z-50 flex flex-row">
-        {rightTabs.map(renderTab)}
-      </div>
-    </nav>
+    <ViewTransition name="nav">
+      <nav className="hidden lg:block nav z-50">
+        <div className="fixed top-0 left-0 bottom-0 z-50 flex flex-row">
+          {leftTabs.map(renderTab)}
+        </div>
+        <div className="fixed top-0 right-0 bottom-0 z-50 flex flex-row">
+          {rightTabs.map(renderTab)}
+        </div>
+      </nav>
+    </ViewTransition>
   );
 }
 

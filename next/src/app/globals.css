@@ -4,25 +4,25 @@
 
 ::view-transition-old(.slide-in-back) {
   animation-name: slideOutRight;
-  animation-duration: 200ms;
+  animation-duration: 500ms;
   animation-timing-function: ease-in-out;
 }
 
 ::view-transition-new(.slide-in-back) {
   animation-name: slideInRight;
-  animation-duration: 200ms;
+  animation-duration: 500ms;
   animation-timing-function: ease-in-out;
 }
 
 ::view-transition-old(.slide-in-forward) {
   animation-name: slideOutLeft;
-  animation-duration: 200ms;
+  animation-duration: 500ms;
   animation-timing-function: ease-in-out;
 }
 
 ::view-transition-new(.slide-in-forward) {
   animation-name: slideInLeft;
-  animation-duration: 200ms;
+  animation-duration: 500ms;
   animation-timing-function: ease-in-out;
 }
 
@@ -31,13 +31,13 @@
     transform: translateX(0);
   }
   to {
-    transform: translateX(-100vw);
+    transform: translateX(calc(-100vw + 256px));
   }
 }
 
 @keyframes slideInLeft {
   from {
-    transform: translateX(-100vw);
+    transform: translateX(calc(-100vw + 256px));
   }
   to {
     transform: translateX(0);
@@ -49,42 +49,26 @@
     transform: translateX(0);
   }
   to {
-    transform: translateX(100vw);
+    transform: translateX(calc(100vw - 256px));
   }
 }
 
 @keyframes slideInRight {
   from {
-    transform: translateX(100vw);
+    transform: translateX(calc(100vw - 256px));
   }
   to {
     transform: translateX(0);
   }
 }
 
-@keyframes inPlace {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-::view-transition-group(tab-blog) {
-  z-index: 100;
-}
-
-::view-transition-group(tab-projects) {
-  z-index: 100;
-}
-
-::view-transition-group(tab-about) {
-  z-index: 100;
-}
-
+::view-transition-group(tab-blog),
+::view-transition-group(tab-projects),
+::view-transition-group(tab-about),
 ::view-transition-group(tab-home) {
-  z-index: 100;
+  z-index: 100 !important;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in-out;
 }
 
 .prose h1 {

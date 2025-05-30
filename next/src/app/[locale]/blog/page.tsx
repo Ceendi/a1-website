@@ -1,3 +1,5 @@
+export const revalidate = 300;
+
 import { unstable_ViewTransition as ViewTransition } from "react";
 import config from "@/config";
 import BlogCard from "@/app/[locale]/components/BlogCard";
@@ -17,6 +19,9 @@ export interface Blog {
 
 const fetchBlogs = async (): Promise<Blog[]> => {
   const reqOptions = {
+    next: {
+      revalidate: 300,
+    },
     headers: {
       Authorization: `Bearer ${process.env.API_TOKEN}`,
     },
@@ -77,7 +82,7 @@ export default async function Blog() {
         "right-tabs": "slide-in-forward",
       }}
     >
-      <div className="min-h-screen px-6 py-12 pr-6 lg:ml-48 lg:mr-16 z-10 scroll-smooth">
+      <div className="min-h-screen px-6 py-12 pr-6 lg:ml-48 lg:mr-16 scroll-smooth">
         <div className="max-w-4xl mx-auto">
           <div className="text-center pb-16">
             <h1 className="text-5xl font-extralight">
@@ -98,6 +103,3 @@ export default async function Blog() {
     </ViewTransition>
   );
 }
-
-export const dynamic = "force-static";
-export const revalidate = 60;
