@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
         port: "1337",
         pathname: "/uploads/**",
       },
-      new URL("https://stunning-chickens-ea7a4ffd2a.media.strapiapp.com//**"),
+      new URL("https://stunning-chickens-ea7a4ffd2a.media.strapiapp.com/**"),
     ],
   },
 };
