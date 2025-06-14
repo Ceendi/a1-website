@@ -114,11 +114,11 @@ export default async function BlogPost({
 
   return (
     <div className="min-h-screen bg-gradient-to-br px-0 py-4 sm:px-2 sm:py-8 flex justify-center items-start">
-      <div className="w-full max-w-3xl bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-12 md:p-24 lg:p-24 xl:p-28 relative border border-slate-200 dark:border-neutral-800 mx-0">
+      <div className="w-full max-w-3xl bg-white dark:bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-12 md:p-24 lg:p-24 xl:p-28 relative border border-black dark:border-black mx-0">
         <div className="flex items-center gap-2 mb-6 sm:mb-8">
           <Link
             href="/blog"
-            className="group inline-flex items-center text-slate-300 hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-slate-100 dark:bg-neutral-800 hover:bg-blue-50 dark:hover:bg-neutral-700 shadow-sm"
+            className="group inline-flex items-center text-black hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-slate-100 dark:bg-white hover:bg-neutral-300 dark:hover:bg-neutral-300 border border-black"
           >
             <span className="mr-2 text-xl group-hover:-translate-x-1 transition-transform">
               ←
@@ -145,7 +145,7 @@ export default async function BlogPost({
           )}
         </ViewTransition>
         <ViewTransition name={`blog-title-${slug}`}>
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 sm:mb-8 leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white dark:text-black mb-6 sm:mb-8 leading-tight">
             {Title}
           </h1>
         </ViewTransition>

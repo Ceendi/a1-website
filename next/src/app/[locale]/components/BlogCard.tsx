@@ -16,7 +16,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
   return (
     <ViewTransition key={blog.id} name={`blog-card-${blog.id}`}>
       <Link href={`/blog/${blog.slug}`}>
-        <article className="p-8 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300">
+        <article className="p-8 bg-black/5 rounded-2xl border border-black/10 hover:bg-black/20 transition-all duration-300">
           <ViewTransition name={`blog-image-${blog.slug}`}>
             {imageUrl && (
               <Image
