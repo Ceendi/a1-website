@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="pl">
       <NextIntlClientProvider>
-        <body className="bg-black text-white">
+        <body className="bg-white text-black">
           <div className="relative h-screen">
             <Navigation />
             <MobileNavigation />

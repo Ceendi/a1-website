@@ -34,8 +34,11 @@ export default function Navigation() {
   const leftTabs = pages.slice(0, currentIndex + 1);
   const rightTabs = pages.slice(currentIndex + 1);
 
-  const renderTab = (tab: (typeof pages)[number]) => {
+  type Side = "left" | "right";
+
+  const renderTab = (tab: (typeof pages)[number], side: Side) => {
     const isActive = isTabActive(pathname, tab.name);
+    const borderSide = side === "left" ? "border-r" : "border-l";
     return (
       <ViewTransition key={`${tab.path}`} name={`tab-${tab.name}`}>
         <Link
@@ -55,11 +58,12 @@ export default function Navigation() {
               router.push(tab.path);
             });
           }}
-          className={`h-screen flex items-center justify-center relative w-16 z-50 animate-in-place
+          className={`h-screen flex items-center justify-center relative w-16 z-50 animate-in-place",
+          ${borderSide} "border-black border-2",
           ${
             isActive
               ? "bg-white text-black disabled cursor-default"
-              : "bg-slate-300 text-black hover:text-white hover:bg-black"
+              : "bg-white text-black hover:text-white hover:bg-black"
           }`}
           key={tab.path}
           aria-current={isActive ? "page" : undefined}
@@ -86,10 +90,11 @@ export default function Navigation() {
     <ViewTransition name="nav">
       <nav className="hidden lg:block nav z-50">
         <div className="fixed top-0 left-0 bottom-0 z-50 flex flex-row">
-          {leftTabs.map(renderTab)}
+          {leftTabs.map((t) => renderTab(t, "left"))}
         </div>
         <div className="fixed top-0 right-0 bottom-0 z-50 flex flex-row">
-          {rightTabs.map(renderTab)}
+          {rightTabs.map((t) => renderTab(t, "right"))}
+
         </div>
       </nav>
     </ViewTransition>

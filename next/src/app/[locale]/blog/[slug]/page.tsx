@@ -156,7 +156,7 @@ export default async function BlogPost({
           {prevBlog ? (
             <Link
               href={`/blog/${prevBlog.slug}`}
-              className="group inline-flex items-center justify-center text-slate-300 hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-slate-100 dark:bg-neutral-800 hover:bg-blue-50 dark:hover:bg-neutral-700 shadow-sm w-full sm:w-auto"
+              className="group inline-flex items-center justify-center text-white hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-slate-100 dark:bg-neutral-800 hover:bg-blue-50 dark:hover:bg-neutral-700 shadow-sm w-full sm:w-auto"
             >
               <span className="mr-2 text-xl group-hover:-translate-x-1 transition-transform">
                 ←
@@ -171,7 +171,7 @@ export default async function BlogPost({
           {nextBlog ? (
             <Link
               href={`/blog/${nextBlog.slug}`}
-              className="group inline-flex items-center justify-center text-slate-300 hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-slate-100 dark:bg-neutral-800 hover:bg-blue-50 dark:hover:bg-neutral-700 shadow-sm w-full sm:w-auto"
+              className="group inline-flex items-center justify-center text-white hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-slate-100 dark:bg-neutral-800 hover:bg-blue-50 dark:hover:bg-neutral-700 shadow-sm w-full sm:w-auto"
             >
               <span className="truncate max-w-[240px] sm:max-w-xs">
                 {nextBlog.Title}
