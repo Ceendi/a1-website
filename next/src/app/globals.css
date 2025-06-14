@@ -71,6 +71,13 @@
   animation-timing-function: ease-in-out;
 }
 
+body {
+  background-color: #000;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
 .prose h1 {
   font-size: 2em !important;
 }
