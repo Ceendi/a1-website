@@ -5,6 +5,14 @@ import { Project } from "../page";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
 const fetchProjectBySlug = async (slug: string): Promise<Project | null> => {
   try {
     const reqOptions = {
@@ -68,10 +76,7 @@ export default async function ProjectPage({
   const project = await fetchProjectBySlug(slug);
   if (!project) return notFound();
   return (
-    <div
-      className="flex items-center justify-center"
-      style={{ fontFamily: '"Viner Hand ITC", cursive' }}
-    >
+    <div className={`flex items-center justify-center ${montserrat.className}`}>
       {project.sliderImages && project.sliderImages.length > 0 && (
         <div className="flex flex-col items-center w-full h-full">
           <div className="relative lg:w-[calc(100vw-16rem)] w-screen h-screen">
@@ -128,6 +133,27 @@ export default async function ProjectPage({
                 alt={img.alternativeText || `Slider Image ${index + 1}`}
                 className="object-cover"
               />
+              <div
+                className="
+                            absolute
+                            top-1/2
+                            left-1/2
+                            -translate-x-1/2
+                            -translate-y-1/2
+                            bg-black/10
+                            backdrop-blur-md
+                            rounded-md
+                            px-4
+                            py-2
+                            text-white
+                            font-semibold
+                            text-lg
+                            select-none
+                            pointer-events-none
+                        "
+              >
+                {project.year}
+              </div>
             </div>
           ))}
         </div>

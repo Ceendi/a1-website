@@ -6,6 +6,14 @@ import { unstable_ViewTransition as ViewTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
 export interface Project {
   id: number;
   title: string;
@@ -86,16 +94,19 @@ export default async function Projects() {
       }}
     >
       <div
-        className="min-h-screen lg:ml-32 lg:mr-32"
+        className={`min-h-screen w-full lg:ml-32 lg:mr-32`}
         style={{ fontFamily: '"Viner Hand ITC", cursive' }}
       >
-        <div className="text-center mb-8 mt-8">
+        <div className="text-center mb-2 mt-8">
           <h1 className="text-7xl font-extralight">
-            Nasze <span className="text-red-600">Projekty</span>
+            Nasze{" "}
+            <span className="text-red-600 drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">
+              Projekty
+            </span>
           </h1>
         </div>
 
-        <div className="grid gap-8">
+        <div className={`grid gap-8`}>
           {projects.map((project, index) => {
             const isEven = index % 2 === 0;
             return (
@@ -106,9 +117,9 @@ export default async function Projects() {
                 <div
                   className={`flex flex-col lg:flex-row items-center ${
                     isEven ? "lg:flex-row" : "lg:flex-row-reverse"
-                  } gap-8`}
+                  } gap-8 w-full`}
                 >
-                  <div className="relative w-full lg:w-[75%] md:w-[95%]">
+                  <div className="relative w-full lg:w-[75%] transition-transform duration-300 ease-in-out hover:scale-[1.02]">
                     {project.mainImage && (
                       <Link
                         href="/projects/[id]"
@@ -131,43 +142,29 @@ export default async function Projects() {
                         />
                       </Link>
                     )}
+
                     <div
-                      className="
-                            absolute
-                            top-1/2
-                            left-1/2
-                            -translate-x-1/2
-                            -translate-y-1/2
-                            bg-black/10
-                            backdrop-blur-md
-                            rounded-md
-                            px-4
-                            py-2
-                            text-white
-                            font-semibold
-                            text-lg
-                            select-none
-                            pointer-events-none
-                        "
+                      className={`absolute top-[0.7px] ${
+                        isEven ? "left-[0.7px]" : "right-[0.7px]"
+                      }`}
                     >
-                      {project.year}
-                    </div>
-                    <div className="absolute top-4 left-4">
                       <h3
-                        className="text-[clamp(1rem,2vw,4rem)] font-bold text-white 
-                            bg-black/15 backdrop-blur-[6px] border border-white/10 
-                            rounded-lg p-3 shadow-md"
+                        className="text-[clamp(1rem,2vw,4rem)] font-bold
+                            bg-black/20 backdrop-blur-[6px] border border-white/5 
+                            rounded-lg p-3 shadow-md text-red-600"
                       >
                         {project.title.toUpperCase()}
                       </h3>
                     </div>
 
                     <div
-                      className="lg:mt-[5%] md:mt-6
-                            lg:absolute lg:top-1 lg:right-4 lg:text-[clamp(0.5rem,0.9vw,2rem)]
-                            bg-black/15 backdrop-blur-[24px] border border-white/10
-                            p-4 rounded-lg text-white shadow-md 
-                            max-w-full lg:max-w-[30%]"
+                      className={`lg:mt-[5%] md:mt-6
+                            lg:absolute lg:top-1 ${
+                              isEven ? "lg:right-0" : "lg:left-0"
+                            } lg:text-[clamp(0.5rem,0.9vw,2rem)]
+                            lg:bg-black/20  backdrop-blur-[6px] border border-white/5
+                            p-4 rounded-lg text-black lg:text-white shadow-md 
+                            max-w-full lg:max-w-[30%] ${montserrat.className}`}
                     >
                       {project.description}
                     </div>
