@@ -112,7 +112,7 @@ export default async function Projects() {
             return (
               <div
                 key={project.id}
-                className="p-8 bg-white/5 rounded-2xl border border-white/10"
+                className="p-8 bg-white/5 border border-white/10"
               >
                 <div
                   className={`flex flex-col lg:flex-row items-center ${
@@ -125,21 +125,23 @@ export default async function Projects() {
                         href="/projects/[id]"
                         as={`/projects/${project.slug}`}
                       >
-                        <Image
-                          priority={true}
-                          width={2000}
-                          height={1000}
-                          src={
-                            project.mainImage.url.startsWith("http")
-                              ? project.mainImage.url
-                              : `${config.api}${project.mainImage.url}`
-                          }
-                          alt={
-                            project.mainImage.alternativeText ||
-                            "Main project Image"
-                          }
-                          className="rounded-lg w-full h-auto"
-                        />
+                        <ViewTransition name={`project-image-${project.slug}`}>
+                          <Image
+                            priority={true}
+                            width={2000}
+                            height={1000}
+                            src={
+                              project.mainImage.url.startsWith("http")
+                                ? project.mainImage.url
+                                : `${config.api}${project.mainImage.url}`
+                            }
+                            alt={
+                              project.mainImage.alternativeText ||
+                              "Main project Image"
+                            }
+                            className="rounded-[30px] w-full h-auto"
+                          />
+                        </ViewTransition>
                       </Link>
                     )}
 
@@ -149,21 +151,21 @@ export default async function Projects() {
                       }`}
                     >
                       <h3
-                        className="text-[clamp(1rem,2vw,4rem)] font-bold
-                            bg-black/20 backdrop-blur-[6px] border border-white/5 
-                            rounded-lg p-3 shadow-md text-red-600"
+                        className={`text-[clamp(1rem,2vw,4rem)] font-bold
+                            bg-black/20 backdrop-blur-[6px] border border-white/50
+                            rounded-[10px] p-3 m-5 text-white ${montserrat.className}`}
                       >
                         {project.title.toUpperCase()}
                       </h3>
                     </div>
 
                     <div
-                      className={`lg:mt-[5%] md:mt-6
-                            lg:absolute lg:top-1 ${
+                      className={`
+                            lg:absolute lg:bottom-0 p-3 m-5 ${
                               isEven ? "lg:right-0" : "lg:left-0"
                             } lg:text-[clamp(0.5rem,0.9vw,2rem)]
-                            lg:bg-black/20  backdrop-blur-[6px] border border-white/5
-                            p-4 rounded-lg text-black lg:text-white shadow-md 
+                            lg:bg-black/20  backdrop-blur-[6px] border border-white/50
+                            p-4 rounded-[10px] text-black lg:text-white 
                             max-w-full lg:max-w-[30%] ${montserrat.className}`}
                     >
                       {project.description}

@@ -4,6 +4,7 @@ import config from "@/config";
 import { Project } from "../page";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { unstable_ViewTransition as ViewTransition } from "react";
 
 import { Montserrat } from "next/font/google";
 
@@ -81,19 +82,21 @@ export default async function ProjectPage({
         <div className="flex flex-col items-center w-full h-full">
           <div className="relative lg:w-[calc(100vw-16rem)] w-screen h-screen">
             {project.mainImage && (
-              <Image
-                fill
-                src={
-                  project.mainImage.url.startsWith("http")
-                    ? project.mainImage.url
-                    : `${config.api}${project.mainImage.url}`
-                }
-                alt={
-                  project.mainImage.alternativeText ||
-                  `Main Image for ${project.title}`
-                }
-                className="object-cover"
-              />
+              <ViewTransition name={`project-image-${project.slug}`}>
+                <Image
+                  fill
+                  src={
+                    project.mainImage.url.startsWith("http")
+                      ? project.mainImage.url
+                      : `${config.api}${project.mainImage.url}`
+                  }
+                  alt={
+                    project.mainImage.alternativeText ||
+                    `Main Image for ${project.title}`
+                  }
+                  className="object-cover"
+                />
+              </ViewTransition>
             )}
             <div
               className="
@@ -164,7 +167,7 @@ export default async function ProjectPage({
           {project.title.toUpperCase()}
         </h3>
         <p
-          className="text-[clamp(0.8rem,1vw,1.5rem)] max-w-4xl"
+          className="text-[clamp(0.8rem,1vw,1.5rem)] max-w-7xl"
           style={{ lineHeight: "1.5" }}
         >
           {project.description}
