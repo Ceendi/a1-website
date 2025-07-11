@@ -2,73 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --curves-h: 100vh;
+    --curves-w: calc(100vw - 256px);;
+}
+
 ::view-transition-old(.slide-in-back) {
-  animation-name: slideOutRight;
-  animation-duration: 500ms;
-  animation-timing-function: ease-in-out;
+    animation-name: slideOutRight;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
 }
 
 ::view-transition-new(.slide-in-back) {
-  animation-name: slideInRight;
-  animation-duration: 500ms;
-  animation-timing-function: ease-in-out;
+    animation-name: slideInRight;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
 }
 
 ::view-transition-old(.slide-in-forward) {
-  animation-name: slideOutLeft;
-  animation-duration: 500ms;
-  animation-timing-function: ease-in-out;
+    animation-name: slideOutLeft;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
 }
 
 ::view-transition-new(.slide-in-forward) {
-  animation-name: slideInLeft;
-  animation-duration: 500ms;
-  animation-timing-function: ease-in-out;
+    animation-name: slideInLeft;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
 }
 
 @keyframes slideOutLeft {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(calc(-100vw + 256px));
-  }
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-100vw + 256px));
+    }
 }
 
 @keyframes slideInLeft {
-  from {
-    transform: translateX(calc(-100vw + 256px));
-  }
-  to {
-    transform: translateX(0);
-  }
+    from {
+        transform: translateX(calc(-100vw + 256px));
+    }
+    to {
+        transform: translateX(0);
+    }
 }
 
 @keyframes slideOutRight {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(calc(100vw - 256px));
-  }
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(100vw - 256px));
+    }
 }
 
 @keyframes slideInRight {
-  from {
-    transform: translateX(calc(100vw - 256px));
-  }
-  to {
-    transform: translateX(0);
-  }
+    from {
+        transform: translateX(calc(100vw - 256px));
+    }
+    to {
+        transform: translateX(0);
+    }
 }
 
 ::view-transition-group(tab-blog),
 ::view-transition-group(tab-projects),
 ::view-transition-group(tab-about),
 ::view-transition-group(tab-home) {
-  z-index: 100 !important;
-  animation-duration: 500ms;
-  animation-timing-function: ease-in-out;
+    z-index: 100 !important;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
 }
 
 body {
@@ -79,30 +84,59 @@ body {
 }
 
 .prose h1 {
-  font-size: 2em !important;
+    font-size: 2em !important;
 }
 
 .prose h2 {
-  font-size: 1.5em !important;
+    font-size: 1.5em !important;
 }
 
 .prose h3 {
-  font-size: 1.25em !important;
+    font-size: 1.25em !important;
 }
 
 .prose h1,
 .prose h2,
 .prose h3 {
-  font-weight: 700 !important;
+    font-weight: 700 !important;
 }
+
 .prose ul {
-  list-style-type: disc !important;
-  padding-left: 1.5em !important;
+    list-style-type: disc !important;
+    padding-left: 1.5em !important;
 }
+
 .prose ol {
-  list-style-type: decimal !important;
-  padding-left: 1.5em !important;
+    list-style-type: decimal !important;
+    padding-left: 1.5em !important;
 }
+
 .prose li {
-  margin-bottom: 0.5em !important;
+    margin-bottom: 0.5em !important;
+}
+
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 16rem;
+    background: #2d2d2d;
+    color: #fff;
+    padding: 1rem;
+}
+
+.content {
+    flex: 1;
+    background: #f5f5f5;
+    /* nakładamy przygotowaną maskę */
+    mask: url(#cornerMask);
+    -webkit-mask: url(#cornerMask);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: cover;
+    -webkit-mask-size: cover;
+    position: relative; /* jeśli będziesz pozycjonować coś absolutnie w środku */
+    padding: 2rem;
 }

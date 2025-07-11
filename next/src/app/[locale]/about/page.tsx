@@ -1,72 +1,75 @@
-import Image from "next/image";
-import { unstable_ViewTransition as ViewTransition } from "react";
+// import Image from "next/image";
+import {unstable_ViewTransition as ViewTransition} from "react";
 
 export default function About() {
-  return (
-    <ViewTransition
-      enter={{
-        default: "none",
-        "left-tabs": "slide-in-forward",
-        "right-tabs": "slide-in-back",
-      }}
-      exit={{
-        default: "none",
-        "left-tabs": "slide-in-back",
-        "right-tabs": "slide-in-forward",
-      }}
-    >
-      <div className="absolute top-0 right-0">
-          <Image
-              src="/image/partner2.jpg"
-              alt="Obrazek 2"
-              width={192}
-              height={224}
-              className="object-cover"
-          />
-      </div>
+    return (
+        <ViewTransition
+            enter={{
+                default: "none",
+                "left-tabs": "slide-in-forward",
+                "right-tabs": "slide-in-back",
+            }}
+            exit={{
+                default: "none",
+                "left-tabs": "slide-in-back",
+                "right-tabs": "slide-in-forward",
+            }}
+        >
+            <svg className="absolute bottom-0 right-0 w-[calc(64vw-16rem)] h-[60vh]">
+                <defs>
+                    <clipPath id="curve-br" clipPathUnits="objectBoundingBox">
+                        <path d="M 1 1 L 0 1 C 0.1 0, 0.1 0.2, 1 0 Z" />
+                    </clipPath>
+                </defs>
 
+                {/* prostokąt wypełniony stałym kolorem */}
+                <image
+                    href="/image/partner1.jpg"
+                    x="0"
+                    y="0"
+                    width="100%"
+                    height="100%"
+                    preserveAspectRatio="xMidYMid slice"
+                    clipPath="url(#curve-br)"
+                />
+            </svg>
+            <svg className="absolute bottom-0 left-[256px] w-[40vw] h-[60vh]">
+                <defs>
+                    <clipPath id="curve-bl" clipPathUnits="objectBoundingBox">
+                        <path d="M 0 1 L 0 0.3 C 1 0, 1 0.2, 0.9 1 Z" />
+                    </clipPath>
+                </defs>
 
-      <div className="min-h-screen flex items-center justify-center">
-        {/* Kontener elipsy */}
-        <div className="relative w-96 h-72">
-          {/* Lewy obraz */}
-          <div className="absolute top-1/2 left-0 transform -translate-y-1/2">
-            <div className="w-48 h-56 rounded-3xl overflow-hidden">
-              <Image
-                  src="/image/partner1.jpg"
-                  alt="Obrazek 1"
-                  width={192}
-                  height={224}
-                  className="object-cover"
-              />
-            </div>
-          </div>
-          {/* Górny obraz */}
-          <div className="absolute top-0 right-full">
-            <div className="w-48 h-56 rounded-3xl overflow-hidden">
-              <Image
-                  src="/image/partner2.jpg"
-                  alt="Obrazek 2"
-                  width={192}
-                  height={224}
-                  className="object-cover"
-              />
-            </div>
-          </div>
-          {/* Prawy obraz */}
-          <div className="absolute top-1/2 right-0 transform -translate-y-1/2">
-            <div className="w-48 h-56 rounded-3xl overflow-hidden">
-              <Image
-                  src="/image/partner3.jpg"
-                  alt="Obrazek 3"
-                  width={192}
-                  height={224}
-                  className="object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </ViewTransition>
-  );
+                {/* prostokąt wypełniony stałym kolorem */}
+                <image
+                    href="/image/partner2.jpg"
+                    x="0"
+                    y="0"
+                    width="100%"
+                    height="100%"
+                    preserveAspectRatio="xMidYMid slice"
+                    clipPath="url(#curve-bl)"
+                />
+            </svg>
+            <svg className="absolute top-0 right-0 w-[60vw] h-[50vh]">
+                <defs>
+                    <clipPath id="curve-tr" clipPathUnits="objectBoundingBox">
+                        <path d="M 1 0 L 1 0.8 C 0.3 0.95, 0.25 1.2,0 0 Z" />
+                    </clipPath>
+                </defs>
+
+                {/* prostokąt wypełniony stałym kolorem */}
+                <image
+                    href="/image/partner3.jpg"
+                    x="0"
+                    y="0"
+                    width="100%"
+                    height="100%"
+                    preserveAspectRatio="xMidYMid slice"
+                    clipPath="url(#curve-tr)"
+                />
+            </svg>
+        </ViewTransition>
+    );
 }
+

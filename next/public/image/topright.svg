@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400" preserveAspectRatio="xMinYMid">
+  <a transform="matrix(1.413879, 0, 0, 1.390585, -15.270803, -181.299896)" style=""/>
+  <path style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" d="M 0 0 C 80.03 447.416 160.736 397.14 280 400 C 336.08 399.757 536.034 357.926 700 300"/>
+  <polyline style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" points="0 0 700 0 700 300 312.2130126953125 176.7899932861328"/>
+</svg>
