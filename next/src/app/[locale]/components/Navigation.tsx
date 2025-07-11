@@ -63,14 +63,14 @@ export default function Navigation() {
           ${
             isActive
               ? "bg-white text-black disabled cursor-default"
-              : "bg-white text-black hover:text-white hover:bg-black"
+              : "group bg-white text-black hover:bg-neutral-300 transition-colors ease-in-out px-6 py-3 rounded"
           }`}
           key={tab.path}
           aria-current={isActive ? "page" : undefined}
           aria-disabled={isActive ? "true" : undefined}
           tabIndex={isActive ? -1 : 0}
         >
-          <span className="text-lg font-light tracking-widest flex flex-col items-center select-none">
+          <span className="text-lg font-light tracking-widest flex flex-col items-center select-none transform transition-transform duration-200 ease-in-out group-hover:-translate-y-2">
             {[...t(tab.name.toUpperCase())].map((char, i) =>
               char === " " ? (
                 <span key={`${tab.name}-${i}`} style={{ minHeight: "1em" }}>
