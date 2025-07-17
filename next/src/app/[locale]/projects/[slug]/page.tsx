@@ -5,6 +5,7 @@ import { Project } from "../page";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
+import Link from "next/link";
 
 import { Montserrat } from "next/font/google";
 
@@ -77,7 +78,32 @@ export default async function ProjectPage({
   const project = await fetchProjectBySlug(slug);
   if (!project) return notFound();
   return (
-    <div className={`flex items-center justify-center ${montserrat.className}`}>
+    <div
+      className={`flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-white via-gray-100 to-gray-300 ${montserrat.className}`}
+    >
+      <div className="fixed top-4 z-20">
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 shadow-lg border border-black/10 text-black hover:bg-black hover:text-white transition-all duration-200 text-base sm:text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-black/30"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5 sm:w-6 sm:h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          <span className="hidden sm:inline">Powrót do listy projektów</span>
+          <span className="sm:hidden">Projekty</span>
+        </Link>
+      </div>
       {project.sliderImages && project.sliderImages.length > 0 && (
         <div className="flex flex-col items-center w-full h-full">
           <div className="relative lg:w-[calc(100vw-16rem)] w-screen h-screen">

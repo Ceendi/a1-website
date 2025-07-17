@@ -39,6 +39,11 @@ export default function Navigation() {
   const renderTab = (tab: (typeof pages)[number], side: Side) => {
     const isActive = isTabActive(pathname, tab.name);
     const borderSide = side === "left" ? "border-r" : "border-l";
+    // Alternate gradient direction based on tab index
+    const gradientClass =
+      tab.index % 2 === 0
+        ? "bg-gradient-to-b from-gray-600 via-white to-gray-400"
+        : "bg-gradient-to-t from-gray-600 via-white to-gray-400";
     return (
       <ViewTransition key={`${tab.path}`} name={`tab-${tab.name}`}>
         <Link
@@ -58,12 +63,10 @@ export default function Navigation() {
               router.push(tab.path);
             });
           }}
-          className={`h-screen flex items-center justify-center relative w-16 z-50 animate-in-place",
-          ${borderSide} "border-black border-2",
-          ${
+          className={`h-screen flex items-center justify-center relative w-16 z-50 animate-in-place ${borderSide} border-black border-1 px-6 py-3 ${gradientClass} ${
             isActive
-              ? "bg-white text-black disabled cursor-default"
-              : "group bg-white text-black hover:bg-neutral-300 transition-colors ease-in-out px-6 py-3 rounded"
+              ? "text-black disabled cursor-default"
+              : "group text-black hover:bg-neutral-300 transition-colors ease-in-out"
           }`}
           key={tab.path}
           aria-current={isActive ? "page" : undefined}
@@ -77,7 +80,9 @@ export default function Navigation() {
                   &nbsp;
                 </span>
               ) : (
-                <span key={`${tab.name}-${i}`}>{char}</span>
+                <span key={`${tab.name}-${i}`} style={{ fontWeight: 700 }}>
+                  {char}
+                </span>
               )
             )}
           </span>
@@ -94,7 +99,6 @@ export default function Navigation() {
         </div>
         <div className="fixed top-0 right-0 bottom-0 z-50 flex flex-row">
           {rightTabs.map((t) => renderTab(t, "right"))}
-
         </div>
       </nav>
     </ViewTransition>
@@ -113,17 +117,17 @@ export function MobileNavigation() {
         onClick={() => setOpen((v) => !v)}
       >
         <span
-          className={`block w-7 h-0.5 bg-white mb-1 transition-all duration-300 ${
+          className={`block w-7 h-0.5 bg-black mb-1 transition-all duration-300 ${
             open ? "rotate-45 translate-y-2" : ""
           }`}
         ></span>
         <span
-          className={`block w-7 h-0.5 bg-white mb-1 transition-all duration-300 ${
+          className={`block w-7 h-0.5 bg-black mb-1 transition-all duration-300 ${
             open ? "opacity-0" : ""
           }`}
         ></span>
         <span
-          className={`block w-7 h-0.5 bg-white transition-all duration-300 ${
+          className={`block w-7 h-0.5 bg-black transition-all duration-300 ${
             open ? "-rotate-45 -translate-y-2" : ""
           }`}
         ></span>
@@ -138,7 +142,7 @@ export function MobileNavigation() {
               className={`text-2xl font-semibold my-4 transition-colors duration-200 ${
                 pathname === page.path
                   ? "text-white"
-                  : "text-white hover:text-white"
+                  : "text-white hover:text-gray-500"
               }`}
             >
               {page.name.toUpperCase()}
