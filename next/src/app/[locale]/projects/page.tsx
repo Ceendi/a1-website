@@ -97,7 +97,7 @@ export default async function Projects() {
         className={`min-h-screen w-full lg:ml-32 lg:mr-32`}
         style={{ fontFamily: '"Viner Hand ITC", cursive' }}
       >
-        <div className={`mt-8 mb-8 ${montserrat.className} font-bold`}>
+        <div className={`mt-8 mb-8 ml-8 ${montserrat.className} font-bold`}>
           <div className="text-3xl tracking-[18px] font-light ml-[65]">
             pracownia architektoniczna
           </div>
@@ -164,7 +164,7 @@ export default async function Projects() {
                     <h3
                       className={`text-[clamp(1rem,2vw,4rem)] font-bold absolute top-[0px]
                             bg-black/20 backdrop-blur-[6px] border border-white/60
-                            rounded-[10px] p-3 m-5 text-white ${
+                            rounded-tr-none rounded-bl-none rounded-tl-[10px] rounded-br-[10px] p-3 m-5 text-white ${
                               montserrat.className
                             } 
                             ${isEven ? "left-[0px]" : "right-[0px]"}`}
@@ -178,7 +178,7 @@ export default async function Projects() {
                               isEven ? "lg:right-0" : "lg:left-0"
                             } lg:text-[clamp(0.5rem,0.9vw,2rem)]
                             lg:bg-black/20  backdrop-blur-[6px] border border-white/60
-                            p-4 rounded-[10px] text-black lg:text-white 
+                            p-4 rounded-tr-none rounded-bl-none rounded-tl-[10px] rounded-br-[10px] text-black lg:text-white 
                             max-w-full lg:max-w-[30%] ${montserrat.className}`}
                     >
                       {project.description}
