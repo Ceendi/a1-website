@@ -166,9 +166,11 @@ export default async function Projects() {
                     <h3
                       className={`sm:block hidden text-[clamp(1rem,2vw,4rem)] font-bold absolute top-[0px]
                             bg-black/20 backdrop-blur-[6px] border border-white/60
-                            rounded-tr-none rounded-bl-none rounded-tl-[10px] rounded-br-[10px] p-3 m-5 text-white ${
-                              montserrat.className
-                            } 
+                            ${
+                              !isEven
+                                ? "lg:rounded-br-none lg:rounded-tl-none rounded-tr-[10px] rounded-bl-[10px]"
+                                : "rounded-tr-none rounded-bl-none rounded-tl-[10px] rounded-br-[10px]"
+                            } p-3 m-5 text-white ${montserrat.className} 
                             ${isEven ? "left-[0px]" : "right-[0px]"}`}
                     >
                       {project.title.toUpperCase()}
@@ -202,7 +204,11 @@ export default async function Projects() {
                               isEven ? "lg:right-0" : "lg:left-0"
                             } lg:text-[clamp(0.5rem,0.9vw,2rem)]
                             lg:bg-black/20  backdrop-blur-[6px] border lg:border-white/60 border-black/60 
-                            p-4 lg:rounded-tr-none lg:rounded-bl-none lg:rounded-tl-[10px] lg:rounded-br-[10px] rounded-bl-[30px] rounded-br-[30px] text-black lg:text-white 
+                            p-4 ${
+                              !isEven
+                                ? "lg:rounded-br-none lg:rounded-tl-none rounded-tr-[10px] rounded-bl-[10px]"
+                                : "rounded-tr-none rounded-bl-none rounded-tl-[10px] rounded-br-[10px]"
+                            } text-black lg:text-white 
                             max-w-full lg:max-w-[30%] ${montserrat.className}`}
                     >
                       {project.description}
