@@ -9,6 +9,12 @@ import {
 } from "react";
 import { useTranslations } from "next-intl";
 
+import { Montserrat } from "next/font/google";
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: "600",
+});
+
 const pages = [
   { path: "/", name: "home", index: 0 },
   { path: "/projects", name: "projects", index: 1 },
@@ -39,11 +45,10 @@ export default function Navigation() {
   const renderTab = (tab: (typeof pages)[number], side: Side) => {
     const isActive = isTabActive(pathname, tab.name);
     const borderSide = side === "left" ? "border-r" : "border-l";
-    // Alternate gradient direction based on tab index
     const gradientClass =
       tab.index % 2 === 0
-        ? "bg-gradient-to-b from-gray-600 via-white to-gray-400"
-        : "bg-gradient-to-t from-gray-600 via-white to-gray-400";
+        ? "bg-gradient-to-b from-[#808080] via-white to-[#808080]"
+        : "bg-gradient-to-b from-[#808080] via-white/90 to-[#808080] [background:linear-gradient(to_bottom,#808080_0%,#ffffff_30%,#808080_100%)]";
     return (
       <ViewTransition key={`${tab.path}`} name={`tab-${tab.name}`}>
         <Link
@@ -73,16 +78,16 @@ export default function Navigation() {
           aria-disabled={isActive ? "true" : undefined}
           tabIndex={isActive ? -1 : 0}
         >
-          <span className="text-lg font-light tracking-widest flex flex-col items-center select-none transform transition-transform duration-200 ease-in-out group-hover:-translate-y-2">
+          <span
+            className={`text-2xl sm:text-3xl tracking-widest flex flex-col items-center select-none transform transition-transform duration-200 ease-in-out group-hover:-translate-y-2 ${montserrat.className}`}
+          >
             {[...t(tab.name.toUpperCase())].map((char, i) =>
               char === " " ? (
                 <span key={`${tab.name}-${i}`} style={{ minHeight: "1em" }}>
                   &nbsp;
                 </span>
               ) : (
-                <span key={`${tab.name}-${i}`} style={{ fontWeight: 700 }}>
-                  {char}
-                </span>
+                <span key={`${tab.name}-${i}`}>{char}</span>
               )
             )}
           </span>
@@ -134,20 +139,25 @@ export function MobileNavigation() {
       </button>
       {open && (
         <nav className="fixed inset-0 z-40 bg-black/50 flex flex-col items-center justify-center lg:hidden animate-fade-in">
-          {pages.map((page) => (
-            <Link
-              key={page.path}
-              href={page.path}
-              onClick={() => setOpen(false)}
-              className={`text-2xl font-semibold my-4 transition-colors duration-200 ${
-                pathname === page.path
-                  ? "text-white"
-                  : "text-white hover:text-gray-500"
-              }`}
-            >
-              {page.name.toUpperCase()}
-            </Link>
-          ))}
+          <div
+            className="flex flex-col items-center justify-center w-full h-full"
+            onClick={() => setOpen(false)}
+          >
+            {pages.map((page) => (
+              <Link
+                href={page.path}
+                key={page.path}
+                className={`text-2xl font-semibold my-4 transition-colors duration-200 bg-transparent border-none outline-none ${
+                  pathname === page.path
+                    ? "text-white"
+                    : "text-white hover:text-gray-500"
+                }`}
+                style={{ cursor: "pointer" }}
+              >
+                {page.name.toUpperCase()}
+              </Link>
+            ))}
+          </div>
         </nav>
       )}
     </>

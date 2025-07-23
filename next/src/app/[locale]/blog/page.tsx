@@ -68,6 +68,7 @@ const fetchBlogs = async (): Promise<Blog[]> => {
 
 export default async function Blog() {
   const blogs = await fetchBlogs();
+  console.log("Fetched blogs:", blogs);
 
   return (
     <ViewTransition
@@ -82,7 +83,7 @@ export default async function Blog() {
         "right-tabs": "slide-in-forward",
       }}
     >
-      <div className="min-h-screen px-6 py-12 pr-6 lg:ml-48 lg:mr-16 scroll-smooth">
+      <div className="min-h-screen w-full px-6 py-12 pr-6 lg:ml-48 lg:mr-16 scroll-smooth mesh">
         <div className="max-w-4xl mx-auto">
           <div className="text-center pb-16">
             <h1 className="text-5xl font-extralight">

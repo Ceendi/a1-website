@@ -80,6 +80,7 @@ const fetchProjects = async (): Promise<Project[]> => {
 
 export default async function Projects() {
   const projects = await fetchProjects();
+
   return (
     <ViewTransition
       enter={{
@@ -94,10 +95,12 @@ export default async function Projects() {
       }}
     >
       <div
-        className={`min-h-screen w-full lg:ml-32 lg:mr-32`}
+        className={`min-h-screen w-full lg:ml-32 lg:mr-32 mesh`}
         style={{ fontFamily: '"Viner Hand ITC", cursive' }}
       >
-        <div className={`mt-8 mb-8 ml-8 ${montserrat.className} font-bold`}>
+        <div
+          className={`mt-8 mb-8 ml-10 ${montserrat.className} font-bold mr-10`}
+        >
           <div className="text-xl sm:text-2xl md:text-3xl tracking-[10px] sm:tracking-[14px] md:tracking-[18px] font-light ml-2 sm:ml-[30px] md:ml-[65px]">
             pracownia architektoniczna
           </div>
@@ -177,13 +180,13 @@ export default async function Projects() {
                     </h3>
 
                     {/* title i description na mobile */}
-                    <div className="sm:hidden block">
+                    <div className="lg:hidden block">
                       <Link
                         href="/projects/[id]"
                         as={`/projects/${project.slug}`}
                       >
                         <h3
-                          className={`text-[clamp(1rem,2vw,2.5rem)] font-bold bg-black/70 backdrop-blur-[6px] p-3 text-white ${montserrat.className}`}
+                          className={`sm:hidden block text-[clamp(1rem,2vw,2.5rem)] font-bold bg-black/90 backdrop-blur-[6px] p-3 text-white ${montserrat.className}`}
                         >
                           {project.title.toUpperCase()}
                         </h3>
@@ -199,7 +202,7 @@ export default async function Projects() {
 
                     {/* description na desktopie */}
                     <div
-                      className={`sm:block hidden
+                      className={`lg:block hidden
                             lg:absolute lg:bottom-0 p-3 lg:m-5 ${
                               isEven ? "lg:right-0" : "lg:left-0"
                             } lg:text-[clamp(0.5rem,0.9vw,2rem)]

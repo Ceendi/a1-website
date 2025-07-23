@@ -113,7 +113,7 @@ export default async function BlogPost({
     currentIndex < allBlogs.length - 1 ? allBlogs[currentIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br px-0 py-4 sm:px-2 sm:py-8 flex justify-center items-start">
+    <div className="min-h-screen bg-gradient-to-br px-0 py-4 sm:px-2 sm:py-8 flex justify-center items-start mesh">
       <div className="w-full max-w-3xl bg-white dark:bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-12 md:p-24 lg:p-24 xl:p-28 relative border border-black/10 border-black/10 mx-0">
         <div className="flex items-center gap-2 mb-6 sm:mb-8">
           <Link
