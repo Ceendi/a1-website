@@ -22,8 +22,6 @@ const montserrat = Montserrat({
 type ApiProject = {
   id: number;
   title: string;
-  slug: string;
-  year: number;
   description: string;
   mainImage?: ImageEntry;
   sliderImages?: ImageEntry[];
@@ -56,8 +54,6 @@ export default function Projects() {
           (project: ApiProject): Project => ({
             id: project.id,
             title: project.title,
-            slug: project.slug,
-            year: project.year,
             description: project.description,
             mainImage: project.mainImage,
             sliderImages: project.sliderImages,
@@ -77,8 +73,6 @@ export default function Projects() {
             (project: ApiProject): Project => ({
               id: project.id,
               title: project.title,
-              slug: project.slug,
-              year: project.year,
               description: project.description,
               mainImage: project.mainImage,
               sliderImages: project.sliderImages,

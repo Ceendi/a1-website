@@ -57,7 +57,7 @@ export default function ProjectDetail({
         <div className="flex flex-col items-center w-full">
           <div className="relative lg:w-[calc(100vw-16rem)] w-screen animate-slide-up">
             {project.mainImage && (
-              <ViewTransition name={`project-image-${project.slug}`}>
+              <ViewTransition name={`project-image-${project.id}`}>
                 <img
                   src={project.mainImage.url}
                   alt={

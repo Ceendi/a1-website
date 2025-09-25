@@ -31,8 +31,6 @@ export interface ImageEntry {
 export interface Project {
   id: number;
   title: string;
-  slug: string;
-  year: number;
   description: string;
   mainImage?: ImageEntry;
   sliderImages?: ImageEntry[];
