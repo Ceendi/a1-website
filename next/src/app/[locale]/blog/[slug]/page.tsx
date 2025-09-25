@@ -3,7 +3,7 @@ export const revalidate = 300;
 import React from "react";
 import config from "@/config";
 import { notFound } from "next/navigation";
-import Image from "next/image";
+// import Image from "next/image";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { type Blog } from "../page";
 import Link from "next/link";
@@ -113,76 +113,82 @@ export default async function BlogPost({
     currentIndex < allBlogs.length - 1 ? allBlogs[currentIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br px-0 py-4 sm:px-2 sm:py-8 flex justify-center items-start mesh">
-      <div className="w-full max-w-3xl bg-white dark:bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-12 md:p-24 lg:p-24 xl:p-28 relative border border-black/10 border-black/10 mx-0">
-        <div className="flex items-center gap-2 mb-6 sm:mb-8">
-          <Link
-            href="/blog"
-            className="group inline-flex items-center text-black hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-black/5 dark:bg-black/5 hover:bg-black/10 dark:hover:bg-black/10 border border-black/10"
-          >
-            <span className="mr-2 text-xl group-hover:-translate-x-1 transition-transform">
-              ←
-            </span>{" "}
-            <span className="ms:hidden">Wróć do blogów</span>
-          </Link>
-        </div>
-        <ViewTransition name={`blog-image-${slug}`}>
-          {imageUrl && (
-            <div className="mb-6 sm:mb-10">
-              <Image
-                src={
-                  imageUrl.startsWith("http")
-                    ? imageUrl
-                    : `${config.api}${imageUrl}`
-                }
-                alt={BlogImage?.alternativeText || Title}
-                className="rounded-xl sm:rounded-2xl shadow-lg w-full object-cover"
-                width={BlogImage?.formats?.large?.width || 900}
-                height={BlogImage?.formats?.large?.height || 450}
-                priority
-              />
-            </div>
-          )}
-        </ViewTransition>
+    <div className="relative min-h-screen w-full bg-gradient-to-br mesh px-4 py-4 sm:px-6 sm:py-6 lg:pl-48 lg:pr-16">
+      <div className="absolute top-4 left-4 lg:left-52 z-20">
+        <Link
+          href="/blog"
+          className="group inline-flex items-center text-black hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-black/5 dark:bg-black/5 hover:bg-black/10 dark:hover:bg-black/10 border border-black/10"
+        >
+          <span className="mr-2 text-xl group-hover:-translate-x-1 transition-transform">←</span>
+          <span className="ms:hidden">Wróć do blogów</span>
+        </Link>
+      </div>
+
+      <ViewTransition name={`blog-image-${slug}`}>
+        {imageUrl && (
+          <svg className="absolute top-0 right-0 lg:right-16 z-10 w-[50vw] h-[30vh]">
+            <defs>
+              <clipPath id={`curve-tl-${slug}`} clipPathUnits="objectBoundingBox">
+                {/* Zaokrąglony kształt w lewym górnym rogu */}
+                <path d="M 1 0 L 1 1 C 0.3 0.95, 0 1,0.2 0 Z" />
+              </clipPath>
+            </defs>
+
+            <image
+              href={imageUrl.startsWith("http") ? imageUrl : `${config.api}${imageUrl}`}
+              x="0"
+              y="0"
+              width="100%"
+              height="100%"
+              preserveAspectRatio="xMidYMid slice"
+              clipPath={`url(#curve-tl-${slug})`}
+            />
+          </svg>
+        )}
+      </ViewTransition>
+
+      <div className="flex flex-col min-h-screen w-full">
+        <div className="pt-20 sm:pt-24" />
+
         <ViewTransition name={`blog-title-${slug}`}>
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white dark:text-black mb-6 sm:mb-8 leading-tight">
-            {Title}
-          </h1>
+          <div className="flex justify-start pl-48">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white dark:text-black mb-6 sm:mb-8 leading-tight -translate-x-4 sm:-translate-x-8 md:-translate-x-12">
+              {Title}
+            </h1>
+          </div>
         </ViewTransition>
-        <div className="prose prose-base sm:prose-lg max-w-none dark:prose-invert mb-8 sm:mb-12 prose-h2:text-2xl prose-h3:text-xl prose-p:leading-relaxed prose-p:mb-3 sm:prose-p:mb-4">
-          {Array.isArray(Content) && <BlocksRenderer content={Content} />}
+
+        <div className="w-full md:w-3/5 lg:w-1/2 mx-auto px-0 sm:px-2 pt-20">
+          <div className="prose prose-base sm:prose-lg max-w-none dark:prose-invert mb-8 sm:mb-12 prose-h2:text-2xl prose-h3:text-xl prose-p:leading-relaxed prose-p:mb-3 sm:prose-p:mb-4">
+            {Array.isArray(Content) && <BlocksRenderer content={Content} />}
+          </div>
         </div>
-        <div className="border-t border-slate-200 dark:border-neutral-700 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-2">
-          {prevBlog ? (
-            <Link
-              href={`/blog/${prevBlog.slug}`}
-              className="group inline-flex items-center text-black hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-black/5 dark:bg-black/5 hover:bg-black/10 dark:hover:bg-black/10 border border-black/10 shadow-sm w-full sm:w-auto"
-            >
-              <span className="mr-2 text-xl group-hover:-translate-x-1 transition-transform">
-                ←
-              </span>{" "}
-              <span className="truncate max-w-[240px] sm:max-w-xs">
-                {prevBlog.Title}
-              </span>
-            </Link>
-          ) : (
-            <span />
-          )}
-          {nextBlog ? (
-            <Link
-              href={`/blog/${nextBlog.slug}`}
-              className="group inline-flex items-center text-black hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-black/5 dark:bg-black/5 hover:bg-black/10 dark:hover:bg-black/10 border border-black/10 shadow-sm w-full sm:w-auto"
-            >
-              <span className="truncate max-w-[240px] sm:max-w-xs">
-                {nextBlog.Title}
-              </span>{" "}
-              <span className="ml-2 text-xl group-hover:translate-x-1 transition-transform">
-                →
-              </span>
-            </Link>
-          ) : (
-            <span />
-          )}
+
+        <div className="mt-auto border-t border-slate-200 dark:border-neutral-700 pt-6 sm:pt-8 px-0 sm:px-2">
+          <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-2">
+            {prevBlog ? (
+              <Link
+                href={`/blog/${prevBlog.slug}`}
+                className="group inline-flex items-center text-black hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-black/5 dark:bg-black/5 hover:bg-black/10 dark:hover:bg-black/10 border border-black/10 shadow-sm w-full sm:w-auto"
+              >
+                <span className="mr-2 text-xl group-hover:-translate-x-1 transition-transform">←</span>
+                <span className="truncate max-w-[240px] sm:max-w-xs">{prevBlog.Title}</span>
+              </Link>
+            ) : (
+              <span />
+            )}
+            {nextBlog ? (
+              <Link
+                href={`/blog/${nextBlog.slug}`}
+                className="group inline-flex items-center text-black hover:text-red-600 font-medium text-base transition-colors px-2 py-2 sm:px-3 sm:py-2 rounded-lg bg-black/5 dark:bg-black/5 hover:bg-black/10 dark:hover:bg-black/10 border border-black/10 shadow-sm w-full sm:w-auto"
+              >
+                <span className="truncate max-w-[240px] sm:max-w-xs">{nextBlog.Title}</span>
+                <span className="ml-2 text-xl group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
+            ) : (
+              <span />
+            )}
+          </div>
         </div>
       </div>
     </div>
