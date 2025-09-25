@@ -54,8 +54,8 @@ export default function ProjectDetail({
       )}
 
       {project.sliderImages && project.sliderImages.length > 0 && (
-        <div className="flex flex-col items-center w-full h-full">
-          <div className="relative lg:w-[calc(100vw-16rem)] w-screen lg:h-screen h-auto animate-slide-up">
+        <div className="flex flex-col items-center w-full">
+          <div className="relative lg:w-[calc(100vw-16rem)] w-screen animate-slide-up">
             {project.mainImage && (
               <ViewTransition name={`project-image-${project.slug}`}>
                 <img
@@ -64,7 +64,7 @@ export default function ProjectDetail({
                     project.mainImage.alternativeText ||
                     `Main Image for ${project.title}`
                   }
-                  className="w-full"
+                  className="w-full block"
                 />
               </ViewTransition>
             )}
@@ -73,7 +73,7 @@ export default function ProjectDetail({
           {project.sliderImages.map((img, index) => (
             <div
               key={index}
-              className="relative lg:w-[calc(100vw-16rem)] w-screen lg:h-screen h-auto animate-fade-in"
+              className="relative lg:w-[calc(100vw-16rem)] w-screen animate-fade-in"
             >
               <img
                 src={img.url}
