@@ -442,7 +442,6 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     sliderImages: Schema.Attribute.Media<'files' | 'images', true> &
       Schema.Attribute.Required;
     slug: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 255;
       }>;
@@ -455,15 +454,6 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    year: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 2100;
-          min: 1980;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<2025>;
   };
 }
 

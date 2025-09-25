@@ -39,17 +39,10 @@
       "type": "text",
       "required": true
     },
-    "year": {
-      "type": "integer",
-      "required": false,
-      "default": 2025,
-      "min": 1980,
-      "max": 2100
-    },
     "slug": {
       "type": "string",
       "maxLength": 255,
-      "required": true
+      "required": false
     }
   }
 }
