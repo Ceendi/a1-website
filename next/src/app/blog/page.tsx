@@ -2,7 +2,7 @@ export const revalidate = 300;
 
 import { unstable_ViewTransition as ViewTransition } from "react";
 import config from "@/config";
-import BlogCard from "@/app/[locale]/components/BlogCard";
+import BlogCard from "@/app/components/BlogCard";
 import { type BlocksContent } from "@strapi/blocks-react-renderer";
 import { ImageEntry } from "@/app/Types";
 

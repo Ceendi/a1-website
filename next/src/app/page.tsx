@@ -1,5 +1,4 @@
 import { unstable_ViewTransition as ViewTransition } from "react";
-import Image from "next/image";
 
 import { Montserrat } from "next/font/google";
 
@@ -56,10 +55,9 @@ export default function Home() {
               "polygon(0% 0%, calc(100% - (100vh - 255px) * 0.15) 0%, 100% 100%, calc((100vh - 255px) * 0.15) 100%)",
           }}
         >
-          <Image
-            fill
+          <img
             src="/image/dekor.jpg"
-            alt=""
+            alt="Główne zdjęcie"
             className="w-full h-full
                             object-cover object-center
                             "

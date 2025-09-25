@@ -140,6 +140,7 @@ export default async function BlogPost({
                 width={BlogImage?.formats?.large?.width || 900}
                 height={BlogImage?.formats?.large?.height || 450}
                 priority
+                unoptimized
               />
             </div>
           )}

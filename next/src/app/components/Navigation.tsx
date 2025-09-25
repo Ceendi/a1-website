@@ -7,13 +7,19 @@ import {
   useState,
   unstable_ViewTransition as ViewTransition,
 } from "react";
-import { useTranslations } from "next-intl";
 
 import { Montserrat } from "next/font/google";
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: "600",
 });
+
+const polishNames: Record<string, string> = {
+  HOME: "STRONA GŁÓWNA",
+  PROJECTS: "PROJEKTY",
+  BLOG: "BLOG",
+  ABOUT: "O NAS",
+};
 
 const pages = [
   { path: "/", name: "home", index: 0 },
@@ -30,8 +36,6 @@ function isTabActive(pathname: string, tabName: string) {
 }
 
 export default function Navigation() {
-  const t = useTranslations();
-
   const router = useRouter();
   const pathname = usePathname();
 
@@ -81,15 +85,17 @@ export default function Navigation() {
           <span
             className={`text-2xl sm:text-3xl tracking-widest flex flex-col items-center select-none transform transition-transform duration-200 ease-in-out group-hover:-translate-y-2 ${montserrat.className}`}
           >
-            {[...t(tab.name.toUpperCase())].map((char, i) =>
-              char === " " ? (
-                <span key={`${tab.name}-${i}`} style={{ minHeight: "1em" }}>
-                  &nbsp;
-                </span>
-              ) : (
-                <span key={`${tab.name}-${i}`}>{char}</span>
-              )
-            )}
+            {(polishNames[tab.name.toUpperCase()] || tab.name.toUpperCase())
+              .split("")
+              .map((char, i) =>
+                char === " " ? (
+                  <span key={`${tab.name}-${i}`} style={{ minHeight: "1em" }}>
+                    &nbsp;
+                  </span>
+                ) : (
+                  <span key={`${tab.name}-${i}`}>{char}</span>
+                )
+              )}
           </span>
         </Link>
       </ViewTransition>
