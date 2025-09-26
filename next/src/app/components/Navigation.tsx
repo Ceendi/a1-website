@@ -11,7 +11,7 @@ import {
 import { Montserrat } from "next/font/google";
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: "600",
+  weight: "500",
 });
 
 const polishNames: Record<string, string> = {
@@ -23,9 +23,9 @@ const polishNames: Record<string, string> = {
 
 const pages = [
   { path: "/", name: "home", index: 0 },
-  { path: "/projects", name: "projects", index: 1 },
+  // { path: "/projects", name: "projects", index: 1 },
   { path: "/blog", name: "blog", index: 2 },
-  { path: "/about", name: "about", index: 3 },
+  // { path: "/about", name: "about", index: 3 },
 ];
 
 function isTabActive(pathname: string, tabName: string) {

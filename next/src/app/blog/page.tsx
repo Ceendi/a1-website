@@ -92,7 +92,9 @@ export default async function Blog() {
       }}
     >
 
-      <div className="min-h-screen w-full px-6 pr-6 lg:ml-48 lg:mr-16 scroll-smooth mesh">
+
+      {/*dodać margines potem*/}
+      <div className="min-h-screen w-full px-6 pr-6 lg:ml-32 lg:mr-0 scroll-smooth mesh">
         <div className={`mt-8 mb-8 ml-12 ${montserrat.className} font-bold mr-12`}>
           <div className="text-xl sm:text-2xl md:text-3xl tracking-[10px] sm:tracking-[14px] md:tracking-[18px] font-light ml-2 sm:ml-[30px] md:ml-[65px]">
             pracownia architektoniczna

@@ -128,7 +128,7 @@ export default async function BlogPost({
 
       <ViewTransition name={`blog-image-${slug}`}>
         {imageUrl && (
-          <svg className="absolute top-0 right-0 lg:right-16 z-10 w-[50vw] h-[30vh]">
+          <svg className="fixed top-0 right-0 lg:right-16 z-10 w-[30vw] h-[50vh]">
             <defs>
               <clipPath
                 id={`curve-tl-${slug}`}
@@ -156,18 +156,18 @@ export default async function BlogPost({
         )}
       </ViewTransition>
 
+      <ViewTransition name={`blog-title-${slug}`}>
+        <div className="fixed top-20 sm:top-24 left-24 lg:left-48 lg:pl-24 z-20 flex justify-start">
+          <h1 className="text-2xl max-w-[10vw] sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white dark:text-black mb-6 sm:mb-8 leading-tight -translate-x-4 sm:-translate-x-8 md:-translate-x-12">
+            {Title}
+          </h1>
+        </div>
+      </ViewTransition>
+
       <div className="flex flex-col min-h-screen w-full">
         <div className="pt-20 sm:pt-24" />
 
-        <ViewTransition name={`blog-title-${slug}`}>
-          <div className="flex justify-start pl-48">
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white dark:text-black mb-6 sm:mb-8 leading-tight -translate-x-4 sm:-translate-x-8 md:-translate-x-12">
-              {Title}
-            </h1>
-          </div>
-        </ViewTransition>
-
-        <div className="w-full md:w-3/5 lg:w-1/2 mx-auto px-0 sm:px-2 pt-20">
+        <div className="w-full md:w-3/5 lg:pr-[calc(25vw+4rem)] lg:pl-[calc(10vw+12rem)] lg:w-full mx-auto px-0 sm:px-2 pt-20">
           <div className="prose prose-base sm:prose-lg max-w-none dark:prose-invert mb-8 sm:mb-12 prose-h2:text-2xl prose-h3:text-xl prose-p:leading-relaxed prose-p:mb-3 sm:prose-p:mb-4">
             {Array.isArray(Content) && <BlocksRenderer content={Content} />}
           </div>
